@@ -81,21 +81,21 @@
 
 - Easy to maintenance and update
 
-``` sequence
-title: Inter Prorocol Stack 
-participant application as a
-participant transport as t
-participant network as n
-participant link as l
-participant physical as p
+``` mermaid
+sequenceDiagram
+participant a as application
+participant t as transport
+participant n as network
+participant l as link
+participant p as physical
 note over a: HTTP, FTP
-a->t:
+a->>t: <br>
 note over t: TCP, UDP
-t->n:
+t->>n: <br>
 note over n: IP, routing protocols
-n->l:
+n->>l: <br>
 note over l: Ethernet, WiFi
-l->p:
+l->>p: <br>
 note over p: bits
 ```
 
