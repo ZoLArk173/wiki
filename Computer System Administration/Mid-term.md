@@ -209,4 +209,46 @@ An easy to use, **text-based** installation program.
     - `-f` to force it without checking dependency
 - `make deinstall`
   - run under port's directory
-  - or delete the fo anyway
+  - or delete the folder anyway
+
+# Shells
+
+Interface to communicate with kernel
+
+```mermaid
+graph TD
+id1(Applications)
+id2(Kernel)
+id3.1(CPU)
+id3.2(Memory)
+id3.3(Devices)
+id1---id2
+id2---id3.1
+id2---id3.2
+id2---id3.3
+```
+
+## Shell Startup Files
+
+- `sh`
+  - `/etc/profile` login shell, system wide
+  - `~/.profile` login shell
+  - `ENV`
+- `csh`
+  - `/etc/csh.cshrc` always, system wide
+  - `/etc/csh.login` login shell, system wide
+  - `~/.cshrc` always
+  - `~/.login` login shell
+  - `~/.logout` logout shell
+  - `/etc/csh.logout` logout shell, system wide
+- `tcsh`
+  - `~/.tcshrc` login shell
+  - `csh`'s files
+- `bash`
+  - `~/.bash_profile` login shell
+  - `~/.bash_login` login shell
+  - `~/.profile` login shell
+  - `~/.bashrc` login shell
+  - `BASH_ENV`
+
+use `source <file name>` to to run and execute commands in the file
