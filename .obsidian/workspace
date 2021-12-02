@@ -1,0 +1,125 @@
+{
+  "main": {
+    "id": "7bbdbaff986cbec9",
+    "type": "split",
+    "children": [
+      {
+        "id": "6500a3da1aa79404",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+            "mode": "source"
+          }
+        },
+        "group": "fa5b3d2d775f1f9e"
+      },
+      {
+        "id": "efeb2839d49707a2",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+            "mode": "preview"
+          }
+        },
+        "group": "fa5b3d2d775f1f9e"
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "07f1e3485450587e",
+    "type": "split",
+    "children": [
+      {
+        "id": "97266fd39c955c49",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9ec9e9e5237430e8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "2670d3013bacebcb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "transport layer",
+                "matchingCase": true,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "5c3949b11bf1d564",
+    "type": "split",
+    "children": [
+      {
+        "id": "4d738215e0a5949e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "af600b87e91bc92b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": false
+              }
+            }
+          },
+          {
+            "id": "c39f3980c398585e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "6500a3da1aa79404",
+  "lastOpenFiles": [
+    "Class/Computer Network/Chapter 2 Application Layer.md",
+    "Class/Computer Network/Chapter 1 Introduction.md",
+    "Class/Computer System Administration/Pure-FTP.md",
+    "Introduction to Algorithms/mid-term.md",
+    "Computer Network Programing/Chapter 2.md",
+    "Computer Network/Chapter 2 Application Layer.md",
+    "Computer Network/Chapter 1 Introduction.md"
+  ]
+}
