@@ -88,9 +88,9 @@ pure-uploadscript [-p </path/to/pidfile>] [-B] [-g <gid>] [-h] -r <program to ru
   - Daemonize the process and fork it in background.
 - `-r <program to run>`
   - What program to run. `$PATH` is ignored. It has to be an absolute filename.
-  - `pure-uploadscript` will run the program with **an absolute upload filename as the first argument**. 
+  - `pure-uploadscript` will run the program with **an absolute upload filename as the first argument** (`$1`). 
 
-## Environment
+## Environment Variable
 
 - `UPLOAD_SIZE`
   - size of the file, in bytes.
