@@ -3,14 +3,14 @@
 ## Architectures
 
 - ### client to server
-
+  
   - always-on host
   - data center
   - server has permanent IP address
   - clients don't communicate directly with each other
 
 - ### Peer to Peer (P2P)
-
+  
   - not always-on host
   - arbitrary end systems directly communicate
   - peers request services from other peers
@@ -38,7 +38,7 @@ identifier includes **IP** and **port number**.
 ## Internet transport protocols services
 
 - ## TCP
-
+  
   - reliable
   - flow control
     - sender won't overwhelm receiver
@@ -49,12 +49,12 @@ identifier includes **IP** and **port number**.
   - Good for file transfer, which need to ensnare file correctness.
 
 - ### UDP
-
+  
   - not reliable
   - Good for video conference calls, since small part of data lost doesn't effect the service.
 
 - ### SSL
-
+  
   - Provides encrypted TCP connection, data integrity, end-point authentication.
   - An application layer.
 
@@ -67,30 +67,30 @@ identifier includes **IP** and **port number**.
 ### connections
 
 - #### none-persistent HTTP
-
+  
   - send one object per one TCP connection
-
+  
   - downloading multiple objects require multiple TCP connections
-
-  - ```mermaid
-    sequenceDiagram
-    participant c as client
-    participant s as server
-    c->>s: initiates TCP connection
-    s->>c: accepts connection, notifying client
-    c->>s: sends HTTP request message into TCP connection socket
-    s->>c: forms response and sends message into its socket
-    note left of s: TCP conection closed
-    note right of c: receives messages
-    note over s, c: repeat for each object
-    ```
-
+  
+  - ermaid
+sequenceDiagram
+participant c as client
+participant s as server
+c->>s: initiates TCP connection
+s->>c: accepts connection, notifying client
+c->>s: sends HTTP request message into TCP connection socket
+s->>c: forms response and sends message into its socket
+note left of s: TCP conection closed
+note right of c: receives messages
+note over s, c: repeat for each object
+```
+  
   - OS overhead for each TCP connection
-
+  
   - browsers often parallel TCP connections to fetch objects
 
 - #### persistent HTTP
-
+  
   - multiple objects can transfer between client and server with one TCP connection.
   - server leaves connection open after sending response.
   - subsequent HTTP messages send over same connections.
@@ -98,7 +98,7 @@ identifier includes **IP** and **port number**.
 ### HTTP message
 
 - #### request
-
+  
   - Human readable format
   - Method
     - GET
@@ -108,7 +108,7 @@ identifier includes **IP** and **port number**.
     - DELETE (HTTP 1.1)
 
 - #### response
-
+  
   - status code
 
 ## Cookies
@@ -117,18 +117,18 @@ identifier includes **IP** and **port number**.
 
 - can be use for: authorization, shopping carts, recommendations, etc.
 
-- ```mermaid
-  sequenceDiagram
-  participant c as client
-  participant s as server(amazon)
-  note left of c: ebay 8734
-  c->>s: usual HTTP request
-  note right of s: creates ID 1678<br/>Save to database
-  s->>c: usual HTTP respond<br/>cookie: 1678
-  note left of c: ebay 8734<br/>amazon 1678
-  c->>s: usual HTTP request<br/>cookie: 1678
-  s->>c: usual HTTP respond
-  ```
+- `mermaid
+sequenceDiagram
+participant c as client
+participant s as server(amazon)
+note left of c: ebay 8734
+c->>s: usual HTTP request
+note right of s: creates ID 1678<br/>Save to database
+s->>c: usual HTTP respond<br/>cookie: 1678
+note left of c: ebay 8734<br/>amazon 1678
+c->>s: usual HTTP request<br/>cookie: 1678
+s->>c: usual HTTP respond
+```
 
 ## Web Cache (proxy server)
 
@@ -363,25 +363,24 @@ Content Distribution Networks
 How to stream content to hundreds of thousands of simultaneous users?
 
 1. one single, large server
-
+   
    - single point of failure
-
+   
    - point of network congestion
-
+   
    - long path to distant clients
-
+   
    - multiple copies of video sent over outgoing link
-
+   
    - this solution **doesn't scale**
 
 2. store/serve multiple copies of video at multiple geographically distributed sites (CDN)
-
+   
    - enter deep
      - push CDN servers deep into many access networks
      - close to users
    - bring home
      - smaller number of larger clusters in PoPs near access networks
-
 - CDN stores copies of content at CDN nodes
 - client requests content form CDN
   - directed to nearby copy, retrieves content
@@ -401,7 +400,7 @@ Bob client requests video `http://netcinema.com/6Y7B23V`.
 
 Video stored in CDN at `http://KingCDN.com/NetC6y&B23V`.
 
-``` mermaid
+```mermaid
 sequenceDiagram
 participant c as client
 participant cd as client's DNS
@@ -445,7 +444,7 @@ application viewpoint:
 
 #### Interaction
 
-``` mermaid
+```mermaid
 sequenceDiagram
 participant s as server
 participant c as client
@@ -482,7 +481,7 @@ application viewpoint:
 
 #### Interaction
 
-``` mermaid
+```mermaid
 sequenceDiagram
 participant s as server
 participant c as client
@@ -506,6 +505,3 @@ note right of c: close clientSocket
 deactivate c
 deactivate s
 ```
-
-
-

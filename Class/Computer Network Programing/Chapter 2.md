@@ -24,8 +24,8 @@ subgraph third
     id3.3(IPv6)
 end
 subgraph forth
-	id4.1(BPG/DLPI)
-	id4.2(datalink)
+    id4.1(BPG/DLPI)
+    id4.2(datalink)
 end
 
 id1.1-->id4.1
@@ -53,14 +53,14 @@ id4.1-->id4.2
 
 ## Comparing TCP and UDP
 
-|                                   |             TCP              |           UDP           |
-| --------------------------------: | :--------------------------: | :---------------------: |
+|                                   | TCP                          | UDP                     |
+| ---------------------------------:|:----------------------------:|:-----------------------:|
 | binding Between client and server | Yes<br />connection-oriented | No<br />connection-less |
-|                              data |         byte-stream          |         record          |
-|                       reliability | Yes<br />ack, time-out, retx |           No            |
-|                        sequencing |             Yes              |           No            |
-|                      flow control |    Yes<br />window-based     |           No            |
-|                       full-duplex |             Yes              |           Yes           |
+| data                              | byte-stream                  | record                  |
+| reliability                       | Yes<br />ack, time-out, retx | No                      |
+| sequencing                        | Yes                          | No                      |
+| flow control                      | Yes<br />window-based        | No                      |
+| full-duplex                       | Yes                          | Yes                     |
 
 ## TCP Connection
 
@@ -84,7 +84,7 @@ note right of s: ESTABLISHED<br>accept returns<br>read (blocks)
 
 ### Data Transfer
 
-``` mermaid
+```mermaid
 sequenceDiagram
 participant c as client
 participant s as server
@@ -146,4 +146,3 @@ note left of c: CLOSED
     - Solaris reserved ports
   - 32768 ~ 65535
     - Solaris ephemeral ports
-
