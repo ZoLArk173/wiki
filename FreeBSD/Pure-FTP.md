@@ -73,3 +73,34 @@ chown ftp:ftpuser /home/ftp
 - [雄的 FreeBSD 筆記‧FTP 的架設─pure-ftpd](http://mail.lsps.tp.edu.tw/~gsyan/freebsd2001/ftp-pureftpd.html)
 - [anonymous FTP broken with pureftpd](https://forums.gentoo.org/viewtopic-t-283647-start-0.html#:~:text=%22To%20run%20an%20anonymous%20FTP%20server%20you%20must%20have%20a%20*system*%20account%20called%20%27ftp%27.%20Don%27t%20give%20it%20any%20valid%20shell%2C%20just%20a%20home%20directory.%20That%20home%20directory%20is%20the%20anonymous%20area.%22)
 - [How To Configure PureFTPd To Accept TLS Sessions On CentOS 6.2 (howtoforge.com)](https://www.howtoforge.com/how-to-configure-pureftpd-to-accept-tls-sessions-on-centos-6.2)
+
+# `pure-ftp` Upload Script
+
+Run a script when someone upload a file to ftp server.
+
+## Usage
+
+```shell
+pure-uploadscript [-p </path/to/pidfile>] [-B] [-g <gid>] [-h] -r <program to run> [-u <uid>]
+```
+
+- `-B`
+  - Daemonize the process and fork it in background.
+- `-r <program to run>`
+  - What program to run. `$PATH` is ignored. It has to be an absolute filename.
+  - `pure-uploadscript` will run the program with **an absolute upload filename as the first argument**. 
+
+## Environment
+
+- `UPLOAD_SIZE`
+  - size of the file, in bytes.
+- `UPLOAD_PERM`
+  - permission
+- `UPLOAD_UID`
+- `UPLOAD_GID`
+- `UPLOAD_USER`
+  - username
+- `UPLOAD_GROUP`
+- `UPLOAD_VUSER`
+  - virtual username
+
