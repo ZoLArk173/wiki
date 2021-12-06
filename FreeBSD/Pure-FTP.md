@@ -10,7 +10,7 @@ Add FTP over TLS encryption support.
    sudo pkg install openssl
    ```
 
-2. ### Configure PureFTPd
+2. ### Configure `pure-ftpd`
    
     Open `pure-ftpd.conf`.
    
@@ -104,3 +104,6 @@ pure-uploadscript [-p </path/to/pidfile>] [-B] [-g <gid>] [-h] -r <program to ru
 - `UPLOAD_VUSER`
   - virtual username
 
+## Webpage
+
+- https://www.systutorials.com/docs/linux/man/8-pure-uploadscript/
