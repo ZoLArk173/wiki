@@ -14,15 +14,12 @@ load_rc_config $name # Loads the config file, if relevant.
 # Set environment variable
 export JRE_HOME="/usr/local"
 
-pidfile="//myservice/myservice.pid"
-start_cmd="/home/home/myservice ; echo $name is now running on PID $(cat $pidfile)"
+pidfile="/myservice/myservice.pid"
+start_cmd="/home/zo/myservice ; echo $name is now running on PID $(cat $pidfile)"
 stop_cmd="kill $(cat $pidfile); echo $name is not running. ; rm $pidfile)"
-status_cmd="if [ -e $pidfile ]; then echo $ is running on PID $(cat $pidfile). ; return 1; fi; echo MyService is not running. ; return 0"
 
 run_rc_command "$1"
 ```
-
-
 
 ## Add `status` Function to a Service
 
@@ -30,7 +27,7 @@ Assign `status` to `extra_commands`:
 
 ```shell
 extra_commands="status"
-status_cmd="${name}_status"
+status_cmd="if [ -e $pidfile ]; then echo $ is running on PID $(cat $pidfile). ; return 1; fi; echo MyService is not running. ; return 0"
 ```
 
 ## Website

@@ -72,18 +72,18 @@ identifier includes **IP** and **port number**.
   
   - downloading multiple objects require multiple TCP connections
   
-  - ermaid
-sequenceDiagram
-participant c as client
-participant s as server
-c->>s: initiates TCP connection
-s->>c: accepts connection, notifying client
-c->>s: sends HTTP request message into TCP connection socket
-s->>c: forms response and sends message into its socket
-note left of s: TCP conection closed
-note right of c: receives messages
-note over s, c: repeat for each object
-```
+  - ```mermaid
+  sequenceDiagram
+  participant c as client
+  participant s as server
+  c->>s: initiates TCP connection
+  s->>c: accepts connection, notifying client
+  c->>s: sends HTTP request message into TCP connection socket
+  s->>c: forms response and sends message into its socket
+  note left of s: TCP conection closed
+  note right of c: receives messages
+  note over s, c: repeat for each object
+  	```
   
   - OS overhead for each TCP connection
   
@@ -117,7 +117,7 @@ note over s, c: repeat for each object
 
 - can be use for: authorization, shopping carts, recommendations, etc.
 
-- `mermaid
+- ```mermaid
 sequenceDiagram
 participant c as client
 participant s as server(amazon)
@@ -128,7 +128,7 @@ s->>c: usual HTTP respond<br/>cookie: 1678
 note left of c: ebay 8734<br/>amazon 1678
 c->>s: usual HTTP request<br/>cookie: 1678
 s->>c: usual HTTP respond
-```
+	```
 
 ## Web Cache (proxy server)
 
