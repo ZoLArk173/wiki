@@ -347,4 +347,12 @@ acknowledgements
 - sequence number of next byte expected from other side
 - **cumulative ACK**
 
-How receiver handles out-of-order segments is up to implementor. (Tspec doesn't say)
+How receiver handles out-of-order segments is up to implementor. (TCP spec doesn't say)
+
+### Timeout
+
+How to set TCP timeout value?
+
+- must be longer than RTT
+- too short may produce unnecessary retransmissions
+- too long leads to slow reaction to segment loss
