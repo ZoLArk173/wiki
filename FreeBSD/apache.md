@@ -112,15 +112,27 @@ HTTP Strict Transport Security
    </VirtualHost>
    ```
 
-   ``` shell
-   <VirtualHost _default_:443>
-       ...
-       Header always set Strict-Transport-Security "max-age=3153600;includeSubdomains; preload"
-       ...
-   </VirtualHost>
+   31536000 is one year
+
+3. restart `apache` server
+
+## HTTP/2
+
+1. edit `/usr/local/etc/apache24/httpd.conf`
+
+   ```shell
+   LoadModule http2_module libexec/apache24/mod_http2.so
    ```
 
-   31536000 is one year
+2. edit `/usr/local/etc/apache24/extra/httpd-vhosts.conf` and `/usr/local/etc/apache24/extra/httpd-ssl.conf`
+
+   ```shell
+   <VirtualHost *:80>
+       ...
+       Protocols h2 http/1.1
+       ....
+   </VirtualHost>
+   ```
 
 3. restart `apache` server
 
@@ -130,4 +142,5 @@ HTTP Strict Transport Security
 - [How do I change the root directory of an Apache server?](https://stackoverflow.com/questions/5891802/how-do-i-change-the-root-directory-of-an-apache-server)
 - [Ubuntu Apache 上用自簽憑證啟用 https 服務](https://ccnrz.wordpress.com/2017/05/04/%E5%9C%A8-ubuntu-apache-%E4%B8%8A%E5%95%9F%E7%94%A8-https-%E8%87%AA%E7%B0%BD%E6%86%91%E8%AD%89/)
 - [Centos7,8設定 HSTS ( HTTP Strict Transport Security )](http://n.sfs.tw/content/index/15373)
-- 
+- [HTTP/2 and PHP with Apache on FreeBSD](https://cromwell-intl.com/open-source/google-freebsd-tls/apache-http2-php.html)
+
