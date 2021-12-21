@@ -336,7 +336,7 @@ two generic forms of pipelined protocols:
 
 and than application data
 
-### Sequence Number, ACKs
+#### Sequence Number, ACKs
 
 sequence numbers
 
@@ -349,10 +349,219 @@ acknowledgements
 
 How receiver handles out-of-order segments is up to implementor. (TCP spec doesn't say)
 
-### Timeout
+#### Timeout
 
 How to set TCP timeout value?
 
 - must be longer than RTT
 - too short may produce unnecessary retransmissions
 - too long leads to slow reaction to segment loss
+
+How to estimate RTT?
+
+- `SamlpeRTT`
+  - measure time form segment transmission until ACK receipt.
+    - ignore retransmissions
+  - average several recent measures, not just current one.
+- $EstimatedRTT = (1 - \alpha) * EstimatedRTT + \alpha * SampleRTT $
+  - $\alpha = 0.125$ typically
+- $DevRTT = (1-\beta)*DevRTT+\beta*\lvert SampleRTT - EstimatedRTT\rvert$
+  - $\beta = 0.25$ typically
+  - safe margin
+- $TimeoutInterval = EstimatedRTT + 4*DevRTT$
+
+### Reliable Data Transfer
+
+TCP creates `rdt` service on top of `IP`'s unreliable service
+
+- pipelined segments
+- cumulative acks
+- single retransmission timer
+
+retransmissions triggered by:
+
+- timeout events
+- duplicate acks
+
+#### TCP Sender Events
+
+- data received from app
+
+  - create segment with sequence number
+    - sequence number is byte-stream number of first data byte in segment
+
+  - start timer if not already running
+    - for oldest unacked segment
+    - `TimeOutInterval`
+
+- timeout
+
+  - retransmit segment that cause timeout
+  - restart timer
+
+- ack received
+
+  - if ack acknowledges previously unacked segments
+    - start timer if there are still unacked segments
+
+#### TCP Receive Event
+
+- receive in-order segment, every segment is acked
+  - Wait up to 500ms for next segment.
+  - If no segment, sent ACK
+- receive in-order segment, one other segment has ACK pending
+  - acking both in-order segments immediately
+- receive out of order segment, gap detected
+  - send duplicate ACK
+- receive of segment that partially or completely fills gap
+  - send ACK, provided that segment starts at lower end of gap
+
+#### TCP Fast Retransmit
+
+time-out period often relatively long
+
+detect lost segments via duplicate ACKs
+
+- sender often sends many segments back-to-back
+- if segment is lost, there will likely duplicate ACKs.
+
+TCP fast retransmit
+
+- If sender receives 3 ACKs for same data, resend unacked segment with smallest sequence number
+  - likely that unacked segment lost, so don't wait for timeout.
+
+### Flow Control
+
+receiver controls sender, so sender won't overflow receiver's buffer by transmitting too much, too fast.
+
+- receiver "advertises" free buffer space by including `rwnd` value in TCP header of receiver-to-sender segments
+  - `rwnd`: free buffer space
+  - `RcvBuffer` size set via socket options (typical default is 4096 bytes)
+  - many operating systems auto adjust `RcvBuffer`
+- sender limits amount of unacked (in-flight) data to receiver's `rwnd` value
+- guarantees receive buffer will not overflow
+
+### Connection Management
+
+before exchanging data, sender/receiver "handshake"
+
+- agree to establish connection
+- agree on connection parameters
+
+#### TCP 3-way handshake
+
+``` mermaid
+sequenceDiagram
+participant c as client
+participant s as server
+note left of c: choose init sequence number, x<br />send TCP SYN message
+c->>s: SYNbit=1, Seq=x
+note right of s: choose init sequence number, y<br />send TCP SYNACK message,<br />acking SYN
+s->>c: SYNbit=1, Seq=y<br />ACKbit=1, ACKnum=x+1
+note left of c: received SYNACK(x)<br />indicates server is live<br />send ACK for SYNACK<br />this segment may contain<br />client-to-server data
+c->>s: ACKbit=1, ACKnum=y+1
+note right of s: received ACK(y)<br />indicates client is live
+```
+
+#### Closing a Connection
+
+- client, server each close their side of connection
+  - send TCP segment with FIN bit = 1
+
+- respond to received FIN with ACK
+  - on receiving FIN, ACK can be combined with own FIN
+- simultaneous FIN exchanges can be handled
+
+```mermaid
+sequenceDiagram
+participant c as client
+participant s as server
+note left of c: request to close connection
+c->>s: FINbit=1, Seq=x
+s->>c: ACKbit=1, ACKnum=x+1
+note left of c: wait for server close
+s->>c: FINbit=1, Seq=y
+activate c
+note left of c: timed wait for 2*max segment lifetime
+c->>s: ACKbit=1, ACKnum=y+1
+note left of c: no reply, close connection
+deactivate c
+```
+
+## Principles of Congestion Control
+
+congestion:
+
+- too many sources sending too much data too fast for network to handle
+- different from flow control
+- lead to...
+  - lost packets (buffer overflow at routers)
+  - long delays (queueing in router buffers)
+
+## TCP Congestion Control
+
+sender increases transmission rate (window size), probing for usable bandwidth, until loss occurs
+
+- additive increase
+  - increase `cwnd` by 1 MSS every RTT until loss detected
+- multiplicative decrease
+  - cut `cwnd` in half after loss
+
+### Details
+
+- sender limits transmission:
+  $$
+  LastByteSent-LastByteAcked\leq cwnd
+  $$
+
+- `cwnd` is dynamic, function of perceived network congestion
+
+- TCP sending rate:
+  $$
+  rate=\frac{cwnd}{RTT}\ bytes/sec
+  $$
+  send cwnd bytes, wait RTT for ACKs, then send more bytes
+
+### Slow Start
+
+when connection begins, increase rate exponentially until first loss evevt
+
+- initially `cwnd` = 1 MSS
+- double `cwnd` every RTT
+- done by incrementing `cwnd` for every ACK received
+
+initial rate is slow but ramps up exponentially fast
+
+### Detecting, Reacting to Loss
+
+- loss indicated by timeout
+  - `cwnd` set to 1 MSS
+  - window then grows exponentially to threshold, then grows linerly
+- loss indicated by 3 duplicate ACKs TCP RENO
+  - indicate that network capable of delivering some segment
+  - `cwnd` is cut in half window then grows linearly
+- TCP Tahoe always set `cwnd` to 1 (timeout or 3 duplicate acks)
+
+### Switching From Slow Start to CA
+
+When should the exponential increase switch to linear?
+
+when `cwnd` gets to $\frac{1}{2}$ of its value before timeout.
+
+Set a variable `ssthresh`
+
+- on loss event, `ssthresh` is set to $\frac{1}{2}$ of `cwnd` just before loss event
+
+### Throughput
+
+W: window size (measure in bytes) where loss occurs
+
+- average window size (number of in-flight bytes) is $\frac{3}{4}\ W$
+- average thruput is $\frac{3}{4}\ W$ per RTT
+
+#### Explict Congestion Notification
+
+network-assisted congestion control
+
+- 2 bits in IP header (ToS field) marked by network router to indicate congestion
+- congestion indication carried to receiving host reveiver set ECE bit on receiver-to-sender ACK segment to notify sender of congestion
