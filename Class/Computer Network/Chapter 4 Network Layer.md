@@ -83,3 +83,6 @@ Input port functions
 
 ### Destination-Based Forwarding
 
+forwarding table to record the range of IP of every link
+
+but it cannot deal with ranges that are not divided up so nicely
