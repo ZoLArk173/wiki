@@ -73,16 +73,16 @@ identifier includes **IP** and **port number**.
   - downloading multiple objects require multiple TCP connections
   
   - ```mermaid
-  sequenceDiagram
-  participant c as client
-  participant s as server
-  c->>s: initiates TCP connection
-  s->>c: accepts connection, notifying client
-  c->>s: sends HTTP request message into TCP connection socket
-  s->>c: forms response and sends message into its socket
-  note left of s: TCP conection closed
-  note right of c: receives messages
-  note over s, c: repeat for each object
+ 	 sequenceDiagram
+ 	 participant c as client
+	 participant s as server
+ 	 c->>s: initiates TCP connection
+	 s->>c: accepts connection, notifying client
+	 c->>s: sends HTTP request message into TCP connection socket
+	 s->>c: forms response and sends message into its socket
+	 note left of s: TCP conection closed
+	 note right of c: receives messages
+	 note over s, c: repeat for each object
   	```
   
   - OS overhead for each TCP connection

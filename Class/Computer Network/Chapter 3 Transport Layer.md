@@ -559,7 +559,7 @@ W: window size (measure in bytes) where loss occurs
 - average window size (number of in-flight bytes) is $\frac{3}{4}\ W$
 - average thruput is $\frac{3}{4}\ W$ per RTT
 
-#### Explict Congestion Notification
+#### Explicit Congestion Notification
 
 network-assisted congestion control
 

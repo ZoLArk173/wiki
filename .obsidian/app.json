@@ -1,3 +1,8 @@
 {
-  "useMarkdownLinks": false
+  "useMarkdownLinks": false,
+  "spellcheck": true,
+  "foldHeading": false,
+  "foldIndent": false,
+  "showLineNumber": false,
+  "strictLineBreaks": false
 }

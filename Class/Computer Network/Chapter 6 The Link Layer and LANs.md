@@ -28,7 +28,8 @@ data-link layer has responsibility of transferring datagram from one node to phy
 - reliable delivery between adjacent nodes
   - seldom used on low bit-error link
   - wireless links: high error rates
-  - different from transport layer error detection, link error detection verifies the **integrity** of frames when they transmitted over the media. Transport layer error detection operates when receiver receive packets, since sender divides data into packets, there may be packet loss, and transport layer can ask for retransmission.
+  - different from transport layer error detection, link error detection verifies the **integrity** of frames when they transmitted over the media.
+	Transport layer error detection operates when receiver receive packets, since sender divides data into packets, there may be packet loss, and transport layer can ask for retransmission.
 
 - flow control
   - pacing between adjacent sending and receiving nodes
@@ -44,13 +45,13 @@ data-link layer has responsibility of transferring datagram from one node to phy
 
 ### Implemented
 
-- link layer implemented in adaptor or on a chip
+- link layer implemented in adapter or on a chip
   - Ethernet card, 802.11 card
   - implements link, physical layer
 - attaches into host's system buses
 - combination of hardware, software, firmware
 
-### Adaptors Communicating
+### Adapters Communicating
 
 sending side:
 
@@ -244,3 +245,147 @@ channel used for useful transmissions 37% of time at best
 efficiency:
 
 18%, worse than slotted ALOHA
+
+##### CSMA
+
+carrier sense multiple access
+
+listen before transmit
+
+- if channel sensed idle, transmit entire frame
+- if channel sensed busy, defer transmission
+
+###### collision
+
+- collision can still occur
+  - propagation delay means two nodes may not hear each other's transmission
+- collision leads to entire packet transmission time wasted
+
+##### CSMA/CD (collision detection)
+
+carrier sensing, deferral as in CSMA
+
+- collision detected within short time
+- colliding transmissions aborted, reducing channel wastage
+
+###### collision detection
+
+- easy in wired LANs
+  - measure signal strengths
+  - compare transmitted
+  - received signals
+- difficult in wireless LANs
+  - received signal strength overwhelmed by local transmission strength
+
+###### Ethernet CSMA/CD Algorithm
+
+1. NIC received datagram from network layer, creates frame
+2. If NIC senses channel idle, starts frame transmission.
+   If NIC senses channel busy, waits until channel idle, then transmits.
+3. If NIC transmits entire frame without detecting another transmission, NIC is done with frame.
+4. If NIC detects another transmission while transmitting, abords and sends jam signal
+5. After aborting, NIC enters binary (exponential) back off
+   - after $m^{th}$ collision, NIC chooses K at random from $\{0, 1, 2, ..., 2^m-1\}$.
+     NIC waits $k * 512$ bit times, returns to step 2
+   - longer back off interval with more collisions
+
+###### efficiency
+
+- $t_{prop}$ = max propagation delay between 2 nodes in LAN
+- $t_{trans}$ = time to transmit max-size frame
+
+$$
+\text{efficiency}=\frac{1}{1+\frac{5t_{prop}}{t_{trans}}}
+$$
+
+- efficiency goes to 1
+  - as $t_{prop}$ goes to 0
+  - as $t_{trans}$ goes to $\infty$
+- better performance than ALOHA
+
+#### Take Turns MAC Protocols
+
+look for best of both worlds
+
+##### Polling
+
+- master node invites slave nodes to transmit in turn
+- typically used with dumb slave devices
+- concerns
+  - polling overhead
+  - latency
+  - single point of failure (master)
+
+##### Token Passing
+
+- control token passed from one node to next sequentially
+- token message
+- concerns
+  - token overhead
+  - latency
+  - single point of failure
+
+## LANs
+
+### MAC Address and ARP
+
+- 32-bit IP address
+  - network layer address for interface
+  - used for layer 3 (network layer) forwarding
+- MAC (or LAN or physical, or Ethernet) address
+  - used locally to get frame from one interface to another physically-connected interface (same network, in IP-addressing sense)
+  - 48 bit MAC address (for most LANs) burned in NIC ROM, software settable
+
+#### LAN address
+
+- MAC address allocation administered by IEEE
+- manufacturer buys portion of MAC address space to assure uniqueness
+- MAC flat address -> portability
+  - can move LAN card from one LAN to another
+- IP hierarchical address not portable
+  - address depends on IP subnet to which node is attached
+
+#### ARP
+
+address resolution protocol
+
+determine interface's MAC address, knowing its IP address
+
+ARP table: each IP node (host, router) on LAN has table
+
+- IP/MAC address mappings for some LAN nodes `<IP address, MAC address, TTL>`
+- TTL (time to live)
+  - time after which address mapping will be forgotten (typically 20 min)
+
+##### ARP Protocol Under Same LAN
+
+1. A wants to send datagram to B
+   - B's MAC address not in A's ARP table
+2. A broadcasts ARP query packet, containing B's IP address
+   - destination MAC address = `FF-FF-FF-FF-FF-FF`
+   - all nodes on LAN receive ARP query
+3. B receives ARP packet, replies to A with its MAC address
+   - frame sent to A's MAC address (unicast)
+4. A caches IP-to-MAC address pair in its ARP table until information times out
+   - information that times out unless refreshed
+
+- ARP is plug-and-play
+  - nodes create their ARP tables without intervention from net administrator
+
+##### ARP Protocol Routing to Another LAN
+
+send datagram from A to B via R
+
+``` mermaid
+sequenceDiagram
+participant A
+participant R as R<br />Router
+participant B
+note left of A: A wants to sent data to B
+note right of A: MAC src: A<br />MAC dst: R<br />IP src: A<br />IP dst: B
+A->>R: <br />
+note right of R: MAC src: R<br />MAC dst: B<br />IP src: A<br />IP dst: B
+R->>B: <br />
+note right of B: received
+```
+

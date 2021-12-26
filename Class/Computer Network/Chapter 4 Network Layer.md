@@ -225,6 +225,10 @@ overhead: 20 bytes of TCP + 20 bytes of IP = 40 bytes + application layer overhe
   - one datagram becomes several datagrams
   - reassembled only at final destination
   - IP header bits used to identify, order related fragments
+    - same ID number
+    - flag = 1 (not the last one)
+    - flag = 0 (last one)
+    - offset (this fragment starting point) = bytes (without header) / 8
 
 ### IPv4 Addressing
 
@@ -346,64 +350,4 @@ NAT is controversial
 - router should only process up to layer 3
 - address shortage should be solved by IPv6
 - violates end-to-end argument
-- NAT traversal: what if client wants to connect to server behind NAT?
-
-### IPv6
-
-- 32-bit address space soon to be completely allocated
-- header format helps speed processing/forwarding
-- header changes to facilitate QoS
-
-#### IPv6 datagram format
-
-changes from IPv4
-
-- fixed-length 40 byte header
-- no fragmentation allowed
-- priority
-  - identify priority among datagrams in flow
-- flow label
-  - identify datagrams in same "flow"
-- next header
-  - identify upper layer protocol for data
-- checksum
-  - removed entirely to reduce processing time at each hop
-- options
-  - allowed, but outside of header, indicated by "Next Header" field
-- ICMPv6
-  - addition messages types
-  - multicast group management functions
-
-#### Transition from IPv4 to IPv6
-
-- not all routers can be upgrades
-- tunneling
-  - IPv6 datagram carried as payload in IPv4 datagram among IPv4 routers
-
-## Generalized Forwarding and SDN
-
-Each router contains a flow table that is computed and distributed by a logically centralized routing controller
-
-### OpenFlow Data Plane Abstraction
-
-- flow: defined by header files
-- generalized forwarding: simple packet-handling rules
-  - pattern: match values in packet header fields
-  - action: for matched packet drop, forward, modify matched packet or send matched packet to controller
-  - priority: disambiguate overlapping patterns
-  - counters: number of bytes and number of packets
-
-match+action: unified different kinds of devices
-
-- Router
-  - match: longest destination IP prefix
-  - action: forward out a link
-- switch
-  - match: destination MAC address
-  - action: forward or flood
-- firewall
-  - match: IP address and TCP/UDP port numbers
-  - action: permit or deny
-- NAT
-  - match: IP address
-  - action: rewrite address and port
+- NAT 

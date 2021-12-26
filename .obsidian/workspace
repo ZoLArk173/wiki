@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+            "file": "README.md",
             "mode": "source"
           }
         },
@@ -21,7 +21,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+            "file": "README.md",
             "mode": "preview"
           }
         },
@@ -65,7 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
+    "width": 197.0036334991455,
     "collapsed": true
   },
   "right": {
@@ -82,7 +82,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+                "file": "README.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,13 +99,14 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Class/Computer Network/Chapter 2 Application Layer.md",
+                "file": "README.md",
                 "linksCollapsed": false,
-                "unlinkedCollapsed": true
+                "unlinkedCollapsed": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -114,12 +115,15 @@
   },
   "active": "6500a3da1aa79404",
   "lastOpenFiles": [
+    "README.md",
+    "Class/Computer Network/Chapter 6 The Link Layer and LANs.md",
     "Class/Computer Network/Chapter 2 Application Layer.md",
     "Class/Computer Network/Chapter 1 Introduction.md",
+    "FreeBSD/service.md",
+    "Beej's Guide to Network Programming.md",
+    "ALOHA.md",
     "Class/Computer System Administration/Pure-FTP.md",
     "Introduction to Algorithms/mid-term.md",
-    "Computer Network Programing/Chapter 2.md",
-    "Computer Network/Chapter 2 Application Layer.md",
-    "Computer Network/Chapter 1 Introduction.md"
+    "Computer Network Programing/Chapter 2.md"
   ]
 }
