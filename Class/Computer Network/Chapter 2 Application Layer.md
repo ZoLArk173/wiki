@@ -83,7 +83,7 @@ identifier includes **IP** and **port number**.
 	 note left of s: TCP conection closed
 	 note right of c: receives messages
 	 note over s, c: repeat for each object
-  	```
+		```
   
   - OS overhead for each TCP connection
   
@@ -97,7 +97,7 @@ identifier includes **IP** and **port number**.
 
 ### HTTP message
 
-- #### request
+- request
   
   - Human readable format
   - Method
@@ -107,7 +107,7 @@ identifier includes **IP** and **port number**.
     - PUT (HTTP 1.1)
     - DELETE (HTTP 1.1)
 
-- #### response
+- response
   
   - status code
 
@@ -118,17 +118,17 @@ identifier includes **IP** and **port number**.
 - can be use for: authorization, shopping carts, recommendations, etc.
 
 - ```mermaid
-sequenceDiagram
-participant c as client
-participant s as server(amazon)
-note left of c: ebay 8734
-c->>s: usual HTTP request
-note right of s: creates ID 1678<br/>Save to database
-s->>c: usual HTTP respond<br/>cookie: 1678
-note left of c: ebay 8734<br/>amazon 1678
-c->>s: usual HTTP request<br/>cookie: 1678
-s->>c: usual HTTP respond
-	```
+  sequenceDiagram
+  participant c as client
+  participant s as server(amazon)
+  note left of c: ebay 8734
+  c->>s: usual HTTP request
+  note right of s: creates ID 1678<br/>Save to database
+  s->>c: usual HTTP respond<br/>cookie: 1678
+  note left of c: ebay 8734<br/>amazon 1678
+  c->>s: usual HTTP request<br/>cookie: 1678
+  s->>c: usual HTTP respond
+	  ```
 
 ## Web Cache (proxy server)
 
@@ -255,31 +255,27 @@ query and reply message with same format
 ### Attacking DNS
 
 - DDoS
-- redriect attacks
+- redirect attacks
   - man-in-middle intercept queries
   - send fake relies to DNS server, which caches
 - exploit DNS for DDoS
   - send queries with spoofed source address
 
 ## P2P
-
 - no always-on server
 - any end systems directly communicate
 - peers are intermittently connected and may change IP address
 
 ### File Distribution: BitTorrent
-
 - file divided into 256kb chunks
 - peers in torrent send and receive file chunks
 
 #### Structure
-
 - tracker: tracks peers participating in torrent
 - torrent: group of peers exchanging chunks of a file
 
 #### Flow
-
-- peer joining torret
+- peer joining torrent
   - has no chunks, but will get them over time from other peers
   - registers with tracker to get list of peers, connects to subset of peers
 - while downloading, peer uploads chunks to other peers
@@ -288,32 +284,27 @@ query and reply message with same format
 - once peer has entire file, it may leave or remain in torrent
 
 #### Requesting Chunks
-
 - different peers have different subsets of file chunks
-- peer asks other peers for list of chunks that they have periodically
-- requests missing chunks from peer, rarest first.
+- peer asks other peers for list of chunks that they have **periodically**
+- requests missing chunks from peer, **rarest** first.
 
 #### Sending Chunks: tit-for-tat
-
 - peer sends chunks to those 4 peers currently sending him chunks at highest rate
   - other peers are choked by him (don't receive chunks from him)
   - re-evaluate top 4 every 10 secs
 - every 30 secs: randomly select 
 
 ## Video Streaming and CDN
-
 - video traffic is major consumer of Internet bandwidth
 - single video server won't work
 - different users have different capabilities
-- solution: distributed, application-level infrastructure
+- solution: **distributed**, **application-level** infrastructure
 
 ### Video
-
 - video: sequence of images displayed at constant rate
 - image: array of pixels
 
 #### Coding
-
 use redundancy **within** and **between** images to decrease number of bits used to encode image
 
 - spatial coding
@@ -322,72 +313,56 @@ use redundancy **within** and **between** images to decrease number of bits used
   - send only differences from frame `i` and `i+1`.
 
 #### Bit Rate
-
 CBR (Constant Bit Rate):
-
 - fixed video encoding rate
 
 VBR (Variable Bit Rate):
-
 - change as amount of coding changes
 
 ### DASH
-
 Dynamic, Adaptive Streaming over HTTP
 
 server:
-
-- divides video files into multiple chunks
-- each chunk stored, encoded at different rates
+- **divides** video files into multiple chunks
+- **each** chunk stored, encoded **at different rates**
 - **manifest file** provides URLs for different chunks
 
 client:
-
 - periodically measures server-to-client bandwidth
 - consulting manifest, requests one chunk at a time
-  - chooses maximum coding rate sustainable
-  - can choose different coding rate at different points in time
+  - chooses **maximum** coding rate sustainable
+  - can choose different coding rate **at different points in time**
 
 #### Intelligence at Client
-
 client determines...
-
 - **when** to request chunk
 - **what** encoding rate to request
 - **where** to request chunk
 
 ### CDN
-
 Content Distribution Networks
 
 How to stream content to hundreds of thousands of simultaneous users?
-
 1. one single, large server
-   
    - single point of failure
-   
    - point of network congestion
-   
    - long path to distant clients
-   
    - multiple copies of video sent over outgoing link
-   
    - this solution **doesn't scale**
 
-2. store/serve multiple copies of video at multiple geographically distributed sites (CDN)
-   
+2. store/serve **multiple copies of video at multiple geographically distributed sites** (CDN)
    - enter deep
      - push CDN servers deep into many access networks
      - close to users
    - bring home
      - smaller number of larger clusters in PoPs near access networks
+
 - CDN stores copies of content at CDN nodes
 - client requests content form CDN
   - directed to nearby copy, retrieves content
   - may choose different copy if network path congested
 
 #### Over The Top (OTT)
-
 coping with congested Internet
 
 - from each CDN node to retrieve content?
@@ -422,7 +397,7 @@ cdn->>c: <br />
 
 ## Socket Programming
 
-socket: door between application process and end-end-transport protocol.
+socket: door between **application process** and **end-end-transport protocol**
 
 Two socket types for two transport services:
 
@@ -431,12 +406,12 @@ Two socket types for two transport services:
 
 ### with UDP
 
-no "connection" between client and server
+no "**connection**" between client and server
 
-- not handshaking before sending data
+- **no handshaking** before sending data
 - sender **explicitly** attaches **IP destination address** and **port number** to each packet
-- receiver extracts sender IP address and port number from received packet
-- transmitted data may be lost or received out-of-order
+- receiver extracts sender IP address and port number **from received packet**
+- transmitted data may be **lost** or received **out-of-order**
 
 application viewpoint:
 
@@ -448,8 +423,8 @@ application viewpoint:
 sequenceDiagram
 participant s as server
 participant c as client
-note right of c: create socket:<br />clientDocket = socket(AF_INET, SOCK_DGRAM)
-note left of s: create socket, port = x:<br />serverSocket = socket(AF_INET, SOCK_DGRAM)
+note right of c: create socket
+note left of s: create socket, port = x
 note right of c: Create datagram with server IP and port = x
 note right of c: send datagram via clientSocket
 c->>s: <br />
@@ -465,7 +440,7 @@ note right of c: close clientSocket
 client must contract server
 
 - **server process** must **first** be running
-- server must have created socket that welcomes client's contact
+- server must have created socket that **welcomes client's contact**
 
 client contracts server by:
 
@@ -476,7 +451,6 @@ client contracts server by:
   - **source port numbers** used to distinguish clients
 
 application viewpoint:
-
 - TCP provides reliable, in-order byte-stream transfer (pipe) between client and server
 
 #### Interaction

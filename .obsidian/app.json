@@ -4,5 +4,12 @@
   "foldHeading": false,
   "foldIndent": false,
   "showLineNumber": false,
-  "strictLineBreaks": false
+  "strictLineBreaks": false,
+  "spellcheckDictionary": [
+    "datagram",
+    "LANs",
+    "retransmission"
+  ],
+  "legacyEditor": false,
+  "livePreview": true
 }

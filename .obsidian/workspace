@@ -4,28 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "6500a3da1aa79404",
+        "id": "0c57a5512aa4c73b",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "README.md",
-            "mode": "source"
+            "file": "Class/Computer System Administration/Final-term.md",
+            "mode": "source",
+            "source": false
           }
-        },
-        "group": "fa5b3d2d775f1f9e"
-      },
-      {
-        "id": "efeb2839d49707a2",
-        "type": "leaf",
-        "state": {
-          "type": "markdown",
-          "state": {
-            "file": "README.md",
-            "mode": "preview"
-          }
-        },
-        "group": "fa5b3d2d775f1f9e"
+        }
       }
     ],
     "direction": "vertical"
@@ -65,7 +53,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 197.0036334991455,
+    "width": 241,
     "collapsed": true
   },
   "right": {
@@ -82,7 +70,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "Class/Computer System Administration/Final-term.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +87,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "Class/Computer System Administration/Final-term.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": false
               }
@@ -113,17 +101,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "6500a3da1aa79404",
+  "active": "0c57a5512aa4c73b",
   "lastOpenFiles": [
-    "README.md",
+    "Class/Computer System Administration/Final-term.md",
+    "Class/Computer System Administration/Mid-term.md",
     "Class/Computer Network/Chapter 6 The Link Layer and LANs.md",
-    "Class/Computer Network/Chapter 2 Application Layer.md",
+    "Class/Computer Network/Chapter 3 Transport Layer.md",
+    "Class/Computer Network/Chapter 4 Network Layer.md",
     "Class/Computer Network/Chapter 1 Introduction.md",
+    "Class/Computer Network/Chapter 2 Application Layer.md",
+    "README.md",
     "FreeBSD/service.md",
-    "Beej's Guide to Network Programming.md",
-    "ALOHA.md",
-    "Class/Computer System Administration/Pure-FTP.md",
-    "Introduction to Algorithms/mid-term.md",
-    "Computer Network Programing/Chapter 2.md"
+    "Beej's Guide to Network Programming.md"
   ]
 }
